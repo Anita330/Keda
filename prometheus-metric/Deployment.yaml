@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-deploy 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: hello-world
+  template:
+    metadata:
+      labels: 
+        app: hello-world
+    spec:
+      imagePullSecrets:
+        - name: docker-creds
+      containers:
+      - name: hello-world-container 
+        image: gauris17/hello-world:latest 
+        ports:
+          - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service 
+metadata: 
+  name: hello-world-service 
+  annotations:
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "5000"
+    prometheus.io/scrape: "true"
+spec:
+  selector: 
+    app: hello-world 
+  type: ClusterIP
+  ports:
+    - protocol: TCP 
+      port: 5000
+      targetPort: 5000

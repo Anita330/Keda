@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: keda-demo
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      imagePullSecrets:
+        - name: docker-creds
+      containers:
+        - name: worker
+          image: gauris17/worker:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ORDERS_QUEUE
+              value: "orders"
+            - name: RABBITMQ_URL
+              value: "amqp://demo:demo@rabbitmq:5672/"
+            - name: WORKER_SLEEP_MS
+              value: "250"
+
