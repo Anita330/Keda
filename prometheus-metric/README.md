@@ -44,3 +44,7 @@ kubectl apply -f scaledObject.yaml
 apt install hey
 hey -n 5000 -c 500 http://localhost:5000 
 ```
+
+
+![alt text](image.png)
+

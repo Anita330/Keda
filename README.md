@@ -15,3 +15,9 @@
 #### KEDA integrates natively with Kubernetes and HPA
 
 This repository showcases how KEDA can automatically scale Kubernetes workloads based on external events and metrics.
+
+keda is working using scaling object
+![alt text](image.png)
+
+after cronjob time completed
+![alt text](image-1.png)
